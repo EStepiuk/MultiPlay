@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="track"
+            type="ua.stepiukyevhen.multiplay.models.Track" />
+    </data>
+
+    <LinearLayout
+        android:padding="@dimen/list_item_content_margin"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{track.title}"
+            style="@style/AppTheme.TextAppearance.Title"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_marginTop="@dimen/list_item_content_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{track.author}"
+            style="@style/AppTheme.TextAppearance.Small"/>
+
+    </LinearLayout>
+</layout>
