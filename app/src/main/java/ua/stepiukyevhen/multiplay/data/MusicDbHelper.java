@@ -8,15 +8,15 @@ import rx.Observable;
 import rx.Subscriber;
 
 import static ua.stepiukyevhen.multiplay.data.Contract.MusicEntry;
-/**
- * Created by dnt on 6/15/16.
- */
+
+
 public class MusicDbHelper extends SQLiteOpenHelper {
 
     public static final class Queries {
         public static final String SQL_CREATE_ENTRIES =
                 "create table " + MusicEntry.TABLE + "(" +
                         MusicEntry.ID_COLUMN + " integer primary key," +
+                        MusicEntry.PATH_COLUMN + " text," +
                         MusicEntry.TITLE_COLUMN + " text," +
                         MusicEntry.ARTIST_COLUMN + " text," +
                         MusicEntry.ALBUM_COLUMN + " text," +
@@ -28,7 +28,7 @@ public class MusicDbHelper extends SQLiteOpenHelper {
                 "drop table if exists " + MusicEntry.TABLE;
     }
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "db";
 
     public MusicDbHelper(Context context) {

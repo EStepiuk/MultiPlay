@@ -16,5 +16,6 @@ public final class Contract {
         public static final String IMAGE_COLUMN = "image";
         public static final String LENGTH_COLUMN = "length";
         public static final String SOUNDCLOUD_TAG_COLUMN = "soundcloud";
+        public static final String PATH_COLUMN = "path";
     }
 }

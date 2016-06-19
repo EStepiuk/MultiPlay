@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Main
 
     private SoundCloudToken token;
     @Inject SoundCloudAPI api;
+    @Inject DAO dao;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,15 +57,13 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Main
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        setSupportActionBar(binding.toolbar);
+        //setSupportActionBar(binding.toolbar);
         setupRecyclerView();
 
-        MusicDbHelper helper = new MusicDbHelper(this);
-        helper
-                .getReadableDb()
+        dao.getTracks()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(db -> adapter.addItems(DAO.getTracks(db)));
+                .subscribe(adapter::addItems);
     }
 
     @Override
@@ -75,32 +74,6 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Main
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    private Observable<List<Track>> getStorageMusic() {
-        return Observable.create(subscriber -> {
-                    File musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
-                    File[] files = musicDir.listFiles();
-                    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-                    int counter = 0;
-                    List<Track> tracks = new ArrayList<>();
-                    for (File f : files) {
-                        if (counter++ == 9) {
-                            subscriber.onNext(tracks);
-                            tracks.clear();
-                        }
-                        if (f.isDirectory()) continue;
-                        retriever.setDataSource(f.getAbsolutePath());
-                        tracks.add(
-                                new Track(
-                                        retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE),
-                                        retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST))
-                        );
-                    }
-                    subscriber.onNext(tracks);
-                    subscriber.onCompleted();
-                    retriever.release();
-                });
     }
 
     private void setupRecyclerView() {
