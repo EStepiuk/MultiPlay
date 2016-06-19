@@ -45,22 +45,4 @@ public class MusicDbHelper extends SQLiteOpenHelper {
         db.execSQL(Queries.SQL_DROP_ENTRIES);
         onCreate(db);
     }
-
-    public Observable<SQLiteDatabase> getWritableDb() {
-        return Observable.create(new Observable.OnSubscribe<SQLiteDatabase>() {
-            @Override
-            public void call(Subscriber<? super SQLiteDatabase> subscriber) {
-                subscriber.onNext(getWritableDatabase());
-            }
-        });
-    }
-
-    public Observable<SQLiteDatabase> getReadableDb() {
-        return Observable.create(new Observable.OnSubscribe<SQLiteDatabase>() {
-            @Override
-            public void call(Subscriber<? super SQLiteDatabase> subscriber) {
-                subscriber.onNext(getReadableDatabase());
-            }
-        });
-    }
 }
