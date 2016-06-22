@@ -1,6 +1,8 @@
 package ua.stepiukyevhen.multiplay.di;
 
 
+import android.content.SharedPreferences;
+
 import dagger.Component;
 import ua.stepiukyevhen.multiplay.MultiPlayApp;
 import ua.stepiukyevhen.multiplay.data.DAO;
@@ -14,4 +16,5 @@ public interface AppComponent {
 
     SoundCloudAPI api();
     DAO dao();
+    SharedPreferences prefs();
 }

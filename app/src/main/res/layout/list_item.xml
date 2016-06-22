@@ -19,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/ripple_effect"
-            android:onClick="@{MPlayer.play(track.filepath)}">
+            android:onClick="@{MPlayer.play(track, context)}">
 
-            <android.support.v7.widget.AppCompatTextView
+            <ua.stepiukyevhen.multiplay.views.BasicTitleTextView
                 android:id="@+id/artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

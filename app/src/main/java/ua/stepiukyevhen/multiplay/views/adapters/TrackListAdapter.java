@@ -23,6 +23,12 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         notifyDataSetChanged();
     }
 
+    public void replaceItems(List<Track> newItems) {
+        if (items.size() == newItems.size()) return;
+        items.clear();
+        addItems(newItems);
+    }
+
     public void addItems(Track track) {
         items.add(track);
         notifyDataSetChanged();

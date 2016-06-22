@@ -1,26 +1,29 @@
 package ua.stepiukyevhen.multiplay.views.activities;
 
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import ua.stepiukyevhen.multiplay.MultiPlayApp;
 import ua.stepiukyevhen.multiplay.R;
-import ua.stepiukyevhen.multiplay.data.DAO;
 import ua.stepiukyevhen.multiplay.databinding.ActivityMainBinding;
 import ua.stepiukyevhen.multiplay.di.DaggerMainActivityComponent;
 import ua.stepiukyevhen.multiplay.di.MainActivityComponent;
 import ua.stepiukyevhen.multiplay.intefaces.HasComponent;
 import ua.stepiukyevhen.multiplay.intefaces.SoundCloudAPI;
 import ua.stepiukyevhen.multiplay.models.SoundCloudToken;
-import ua.stepiukyevhen.multiplay.views.adapters.TrackListAdapter;
+import ua.stepiukyevhen.multiplay.views.fragments.SoundCloudFragment;
 import ua.stepiukyevhen.multiplay.views.fragments.StorageFragment;
 
 public class MainActivity extends AppCompatActivity implements HasComponent<MainActivityComponent> {
@@ -28,11 +31,13 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Main
     private MainActivityComponent component;
     private ActivityMainBinding binding;
 
+    @Inject SoundCloudAPI api;
+    @Inject SharedPreferences prefs;
+
     @Override
     public MainActivityComponent getComponent() {
         return component;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,10 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Main
 
     private void setupViewPager() {
         binding.container.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            Fragment[] fragments = {new StorageFragment(), new StorageFragment()};
+            Fragment[] fragments = {
+                    new StorageFragment(),
+                    new SoundCloudFragment()
+            };
 
             @Override
             public Fragment getItem(int position) {
@@ -79,10 +87,7 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Main
         });
 
         binding.tabs.setupWithViewPager(binding.container);
-        for (int i = 0; i < binding.tabs.getTabCount(); i++) {
-            TabLayout.Tab tab = binding.tabs.getTabAt(i);
-            if (tab != null)
-                tab.setIcon(R.drawable.ic_audiotrack_white_24dp);
-        }
+        binding.tabs.getTabAt(0).setIcon(R.drawable.ic_audiotrack_white_24dp);
+        binding.tabs.getTabAt(1).setIcon(R.drawable.sc_white_152x80);
     }
 }

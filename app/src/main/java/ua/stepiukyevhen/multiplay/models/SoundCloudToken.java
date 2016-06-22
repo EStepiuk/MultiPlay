@@ -3,15 +3,24 @@ package ua.stepiukyevhen.multiplay.models;
 
 public class SoundCloudToken {
 
-    private String accessToken;
+    private String access_token;
     private String scope;
+    private String refresh_token;
+
+    public String getRefreshToken() {
+        return refresh_token;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refresh_token = refreshToken;
+    }
 
     public String getAccessToken() {
-        return accessToken;
+        return access_token;
     }
 
     public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+        this.access_token = accessToken;
     }
 
     public String getScope() {

@@ -23,7 +23,7 @@ import ua.stepiukyevhen.multiplay.di.StorageFragmentComponent;
 import ua.stepiukyevhen.multiplay.intefaces.HasComponent;
 import ua.stepiukyevhen.multiplay.views.adapters.TrackListAdapter;
 
-public class StorageFragment extends Fragment implements HasComponent<StorageFragmentComponent>{
+public class StorageFragment extends Fragment implements HasComponent<StorageFragmentComponent> {
 
     private SwipeRefreshListBinding binding;
     private StorageFragmentComponent component;
@@ -49,6 +49,7 @@ public class StorageFragment extends Fragment implements HasComponent<StorageFra
 
         setupComponent();
         setupListView();
+        onRefresh();
         binding.swipeRefreshLayout.setOnRefreshListener(this::onRefresh);
     }
 
@@ -72,7 +73,7 @@ public class StorageFragment extends Fragment implements HasComponent<StorageFra
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(items -> {
-                    adapter.addItems(items);
+                    adapter.replaceItems(items);
                     binding.swipeRefreshLayout.setRefreshing(false);
                 });
     }
