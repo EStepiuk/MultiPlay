@@ -1,4 +1,4 @@
-package ua.stepiukyevhen.multiplay.intefaces;
+package ua.stepiukyevhen.multiplay.inteface;
 
 
 public interface HasComponent<T> {

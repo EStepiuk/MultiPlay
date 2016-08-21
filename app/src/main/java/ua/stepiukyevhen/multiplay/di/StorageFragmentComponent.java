@@ -3,7 +3,7 @@ package ua.stepiukyevhen.multiplay.di;
 
 import dagger.Component;
 import ua.stepiukyevhen.multiplay.di.scopes.FragmentScope;
-import ua.stepiukyevhen.multiplay.views.fragments.StorageFragment;
+import ua.stepiukyevhen.multiplay.view.fragment.StorageFragment;
 
 
 @FragmentScope

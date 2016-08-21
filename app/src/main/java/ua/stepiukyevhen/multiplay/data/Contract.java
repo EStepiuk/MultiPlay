@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 public final class Contract {
 
-    public Contract() {}
+    private Contract() {}
 
     public static abstract class MusicEntry implements BaseColumns {
         public static final String TABLE = "music_entry";

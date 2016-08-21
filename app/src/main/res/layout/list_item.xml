@@ -3,9 +3,10 @@
 
     <data>
         <import type="ua.stepiukyevhen.multiplay.MPlayer" />
+        <import type="android.view.View" />
         <variable
             name="track"
-            type="ua.stepiukyevhen.multiplay.models.Track" />
+            type="ua.stepiukyevhen.multiplay.model.base.Track" />
     </data>
 
     <LinearLayout
@@ -13,31 +14,38 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:clickable="true"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/ripple_effect"
-            android:onClick="@{MPlayer.play(track, context)}">
+            android:onClick="@{() -> MPlayer.play(track)}">
 
-            <ua.stepiukyevhen.multiplay.views.BasicTitleTextView
-                android:id="@+id/artist"
+            <LinearLayout
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/content"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{track.title}"
-                style="@style/AppTheme.TextAppearance.Title"/>
+                android:layout_height="match_parent">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/name"
-                android:layout_marginTop="@dimen/text_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{track.author}"
-                style="@style/AppTheme.TextAppearance.Artist"/>
+                <ua.stepiukyevhen.multiplay.view.widget.BasicTitleTextView
+                    android:id="@+id/artist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{track.getTitle()}"
+                    style="@style/AppTheme.TextAppearance.Title"/>
 
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/name"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{track.getArtist()}"
+                    style="@style/AppTheme.TextAppearance.Artist"/>
 
-        </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <View style="@style/Divider"
             android:layout_marginLeft="@dimen/list_item_horizontal_padding"

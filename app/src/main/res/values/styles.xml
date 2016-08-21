@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,13 +14,13 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title.Inverse">
+    <style name="AppTheme.TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:maxLines">1</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="AppTheme.TextAppearance.Artist" parent="TextAppearance.AppCompat.Small.Inverse">
+    <style name="AppTheme.TextAppearance.Artist" parent="TextAppearance.AppCompat.Small">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorAccentFaded</item>
     </style>

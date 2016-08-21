@@ -1,4 +1,4 @@
-package ua.stepiukyevhen.multiplay.intefaces;
+package ua.stepiukyevhen.multiplay.api;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
-import ua.stepiukyevhen.multiplay.models.SoundCloudToken;
-import ua.stepiukyevhen.multiplay.models.Track;
+import ua.stepiukyevhen.multiplay.model.SoundCloudTrack;
+import ua.stepiukyevhen.multiplay.api.response.SoundCloudToken;
 
 
 public interface SoundCloudAPI {
@@ -30,6 +30,8 @@ public interface SoundCloudAPI {
                                          @Field("refresh_token") String refreshToken);
 
     @GET("me/favorites")
-    Observable<List<Track>> getFavorites(@Query("oauth_token") String token,
-                                         @Query("limit") int limit);
+    Observable<List<SoundCloudTrack>> getFavorites(@Query("oauth_token") String token,
+                                                   @Query("limit") int limit);
+
+
 }

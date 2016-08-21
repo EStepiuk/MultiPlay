@@ -1,4 +1,4 @@
-package ua.stepiukyevhen.multiplay.views;
+package ua.stepiukyevhen.multiplay.view.widget;
 
 import android.content.Context;
 import android.graphics.Typeface;

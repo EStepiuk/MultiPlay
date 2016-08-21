@@ -6,21 +6,22 @@ import android.content.SharedPreferences;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.plugins.RxJavaPlugins;
+import ua.stepiukyevhen.multiplay.R;
+import ua.stepiukyevhen.multiplay.api.SoundCloudAPIWrapper;
 import ua.stepiukyevhen.multiplay.data.DAO;
 import ua.stepiukyevhen.multiplay.data.MusicDbHelper;
 import ua.stepiukyevhen.multiplay.di.scopes.AppScope;
-import ua.stepiukyevhen.multiplay.intefaces.SoundCloudAPI;
+import ua.stepiukyevhen.multiplay.api.SoundCloudAPI;
+import ua.stepiukyevhen.multiplay.util.MultiPlayPreferences;
 
 
 @Module
 public class AppModule {
 
-    static final String DEFAULT_PREFS = "ua.stepiukyevhen.multiplay.prefs";
+    private static final String DEFAULT_PREFS = "ua.stepiukyevhen.multiplay.prefs";
 
     private final Application app;
 
@@ -48,6 +49,12 @@ public class AppModule {
 
     @Provides
     @AppScope
+    public MultiPlayPreferences providePreferences(SharedPreferences prefs) {
+        return new MultiPlayPreferences(prefs);
+    }
+
+    @Provides
+    @AppScope
     public MusicDbHelper provideHelper(Context context){
         return new MusicDbHelper(context);
     }
@@ -67,5 +74,15 @@ public class AppModule {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build()
                 .create(SoundCloudAPI.class);
+    }
+
+    @Provides
+    @AppScope
+    public SoundCloudAPIWrapper provideWrappedApi(SoundCloudAPI api, Context context) {
+        return new SoundCloudAPIWrapper(
+                api,
+                context.getString(R.string.client_id),
+                context.getString(R.string.client_secret)
+        );
     }
 }

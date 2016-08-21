@@ -1,4 +1,4 @@
-package ua.stepiukyevhen.multiplay.views.fragments;
+package ua.stepiukyevhen.multiplay.view.fragment;
 
 
 import android.databinding.DataBindingUtil;
@@ -20,8 +20,8 @@ import ua.stepiukyevhen.multiplay.data.DAO;
 import ua.stepiukyevhen.multiplay.databinding.SwipeRefreshListBinding;
 import ua.stepiukyevhen.multiplay.di.DaggerStorageFragmentComponent;
 import ua.stepiukyevhen.multiplay.di.StorageFragmentComponent;
-import ua.stepiukyevhen.multiplay.intefaces.HasComponent;
-import ua.stepiukyevhen.multiplay.views.adapters.TrackListAdapter;
+import ua.stepiukyevhen.multiplay.inteface.HasComponent;
+import ua.stepiukyevhen.multiplay.view.adapter.TrackListAdapter;
 
 public class StorageFragment extends Fragment implements HasComponent<StorageFragmentComponent> {
 
@@ -36,6 +36,13 @@ public class StorageFragment extends Fragment implements HasComponent<StorageFra
         return component;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setupComponent();
+
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,13 +51,13 @@ public class StorageFragment extends Fragment implements HasComponent<StorageFra
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        setupComponent();
         setupListView();
-        onRefresh();
         binding.swipeRefreshLayout.setOnRefreshListener(this::onRefresh);
+        binding.swipeRefreshLayout.setRefreshing(true);
+        onRefresh();
     }
 
     private void setupComponent() {
@@ -63,7 +70,7 @@ public class StorageFragment extends Fragment implements HasComponent<StorageFra
     }
 
     private void setupListView() {
-        adapter = new TrackListAdapter();
+        adapter = new TrackListAdapter(R.layout.list_item);
         binding.list.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.list.setAdapter(adapter);
     }
@@ -72,9 +79,12 @@ public class StorageFragment extends Fragment implements HasComponent<StorageFra
         dao.getTracks()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(items -> {
-                    adapter.replaceItems(items);
-                    binding.swipeRefreshLayout.setRefreshing(false);
-                });
+                .subscribe(
+                        items -> {
+                            adapter.replaceItems(items);
+                            binding.swipeRefreshLayout.setRefreshing(false);
+                        },
+                        Throwable::printStackTrace
+                );
     }
 }

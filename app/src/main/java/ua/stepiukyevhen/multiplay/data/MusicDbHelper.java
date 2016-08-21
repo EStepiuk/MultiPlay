@@ -12,24 +12,24 @@ import static ua.stepiukyevhen.multiplay.data.Contract.MusicEntry;
 
 public class MusicDbHelper extends SQLiteOpenHelper {
 
-    public static final class Queries {
-        public static final String SQL_CREATE_ENTRIES =
+    private static final class Queries {
+        static final String SQL_CREATE_ENTRIES =
                 "create table " + MusicEntry.TABLE + "(" +
                         MusicEntry.ID_COLUMN + " integer primary key," +
                         MusicEntry.PATH_COLUMN + " text," +
                         MusicEntry.TITLE_COLUMN + " text," +
                         MusicEntry.ARTIST_COLUMN + " text," +
                         MusicEntry.ALBUM_COLUMN + " text," +
-                        MusicEntry.IMAGE_COLUMN + " text," +
+                        MusicEntry.IMAGE_COLUMN + " blob," +
                         MusicEntry.LENGTH_COLUMN + " integer," +
                         MusicEntry.SOUNDCLOUD_TAG_COLUMN + " boolean)";
 
-        public static final String SQL_DROP_ENTRIES =
+        static final String SQL_DROP_ENTRIES =
                 "drop table if exists " + MusicEntry.TABLE;
     }
 
-    public static final int DATABASE_VERSION = 2;
-    public static final String DATABASE_NAME = "db";
+    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "db";
 
     public MusicDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
