@@ -40,6 +40,7 @@ public class SplashActivity extends AppCompatActivity implements HasComponent<Sp
         setContentView(R.layout.splash_activity);
 
         if (prefs.isFirstLaunch()) {
+            //TODO: request storage permission
             Schedulers.newThread()
                     .createWorker()
                     .schedule(() -> {

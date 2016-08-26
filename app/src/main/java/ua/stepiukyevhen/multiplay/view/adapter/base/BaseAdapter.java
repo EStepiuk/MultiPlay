@@ -21,6 +21,10 @@ public abstract class BaseAdapter<V extends BaseAdapter.ViewHolder> extends Recy
            this.layout =  layout;
     }
 
+    public List<Track> getItems() {
+        return items;
+    }
+
     public void add(List<? extends Track> newItems) {
         items.addAll(newItems);
         notifyDataSetChanged();

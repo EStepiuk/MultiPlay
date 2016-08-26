@@ -9,10 +9,21 @@ import ua.stepiukyevhen.multiplay.databinding.ListItemBinding;
 import ua.stepiukyevhen.multiplay.model.base.Track;
 import ua.stepiukyevhen.multiplay.view.adapter.base.BaseAdapter;
 
-public class TrackListAdapter extends BaseAdapter<TrackListAdapter.ViewHolder>{
+//TODO: reimplement adapter
+public class TrackListAdapter extends BaseAdapter<TrackListAdapter.ViewHolder> {
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    private OnItemClickListener onItemClickListener;
 
     public TrackListAdapter(@LayoutRes int layout) {
         super(layout);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        onItemClickListener = listener;
     }
 
     @Override
@@ -20,7 +31,7 @@ public class TrackListAdapter extends BaseAdapter<TrackListAdapter.ViewHolder>{
         return new ViewHolder(v);
     }
 
-    public class ViewHolder extends BaseAdapter.ViewHolder {
+    public class ViewHolder extends BaseAdapter.ViewHolder implements View.OnClickListener {
 
         private ListItemBinding binding;
 
@@ -31,6 +42,14 @@ public class TrackListAdapter extends BaseAdapter<TrackListAdapter.ViewHolder>{
 
         public void bind(Track item) {
             binding.setTrack(item);
+            binding.content.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(getAdapterPosition());
+            }
         }
     }
 }

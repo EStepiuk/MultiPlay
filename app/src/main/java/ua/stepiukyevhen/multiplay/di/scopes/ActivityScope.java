@@ -8,4 +8,4 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LoginScope {}
+public @interface ActivityScope {}
